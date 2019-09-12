@@ -8,7 +8,7 @@ module.exports ={
     // 主机
     host:'127.0.0.1',
     // 项目运行端口
-    port:80,
+    port:8080,
     // 项目基地址
     baseUrl:'http://localhost'
 }

@@ -203,7 +203,7 @@ module.exports = {
   // 删除文章
   async _delete(req, res) {
     // 获取id
-    const { id } = req.query
+    const { id } = req.body;
     try {
       const articleRes = await Article.findAll({
         where: {
@@ -240,6 +240,7 @@ module.exports = {
         msg:'文章删除失败,请检查id'
       })
     } catch (error) {
+      console.log(error);
       serverError(res)
     }
   },
@@ -308,7 +309,8 @@ module.exports = {
         ],
         include: [
           {
-            model: Category
+            model: Category,
+            required: true
           }
         ],
         // 分页
