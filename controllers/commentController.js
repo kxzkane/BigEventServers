@@ -30,7 +30,7 @@ module.exports = {
       // 修改评论状态
       const updateRes = await Comment.update(
         {
-          state: "已批准"
+          state: "已通过"
         },
         {
           where: {
@@ -40,7 +40,7 @@ module.exports = {
       );
       if (updateRes[0] == 1) {
         res.send({
-          msg: "已批准",
+          msg: "已通过",
           code: 200
         });
       } else {
@@ -167,6 +167,10 @@ module.exports = {
             model: Article,
             require: true
           }
+        ],
+        order: [
+          	// 根据id倒序
+                ["id", "DESC"]
         ]
       });
      // 总页数

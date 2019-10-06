@@ -38,7 +38,8 @@ module.exports = {
       await Comment.create({
         author,
         content,
-        date: moment().format("YYYY-MM-DD HH:mm:ss"),
+        date: moment().format("YYYY-MM-DD"),
+        time: moment().format("HH:mm:ss"),
         state: "待审核",
         articleId
       })
@@ -200,9 +201,9 @@ module.exports = {
   async hotpic(req, res) {
     try {
       const picRes = await Article.findAll({
-        order: sequelize.random(),
+        order:sequelize.random(),
         limit: 5,
-        attributes: ["cover"]
+        attributes: ["cover","id","title"]
       })
       picRes.forEach(v => {
         if (v.cover.indexOf("https://") == -1) {
@@ -224,7 +225,7 @@ module.exports = {
       const rankRes = await Article.findAll({
         order: [["read", "DESC"]],
         limit: 7,
-        attributes: ["title"]
+        attributes: ["title","id"]
       })
       res.send({
         code: 200,
