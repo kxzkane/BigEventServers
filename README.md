@@ -1,4 +1,5 @@
-## 运行说明 - 数据库
+运行说明 - 数据库
+
 1. 项目的数据保存在mysql中,先保证打开mysql
 
    ![1568597237554](服务器接口文档说明.assets/1568597237554.png)
@@ -128,7 +129,7 @@ baseUrl:'http://localhost'
 
 #### 3、获取用户详情
 
-请求地址：/admin/user/detail
+请求地址：/admin /user/detail
 
 请求方式：get
 
@@ -277,7 +278,6 @@ baseUrl:'http://localhost'
 
 |  名称   |  类型  | 说明                                         |
 | :-----: | :----: | -------------------------------------------- |
-|   key   | string | 搜索关键词，可以为空，为空返回某类型所有文章 |
 |  type   | string | 文章类型id，可以为空，为空返回所有类型文章   |
 |  state  | string | 文章状态，草稿 ，已发布,为空返回所有状态文章 |
 |  page   | number | 当前页，为空返回第1页                        |
@@ -377,7 +377,7 @@ baseUrl:'http://localhost'
 
 请求地址：/admin/article/delete
 
-请求方式：get
+请求方式：post
 
 请求参数：
 
@@ -561,16 +561,16 @@ baseUrl:'http://localhost'
 
 返回数据：
 
-|   名称    |  类型  | 说明                     |
-| :-------: | :----: | ------------------------ |
-|    id     | number | 评论id                   |
-|  author   | string | 评论作者                 |
-|  content  | string | 评论内容                 |
-|    aid    | number | 对应文章id               |
-|   title   | string | 对应文章标题             |
-|   date    | string | 评论发表时间             |
-|   state   | string | 评论状态 ‘批准’ ‘待审核’ |
-| totalPage | number | 总页数                   |
+|   名称    |  类型  | 说明                                 |
+| :-------: | :----: | ------------------------------------ |
+|    id     | number | 评论id                               |
+|  author   | string | 评论作者                             |
+|  content  | string | 评论内容                             |
+|    aid    | number | 对应文章id                           |
+|   title   | string | 对应文章标题                         |
+|   date    | string | 评论发表时间                         |
+|   state   | string | 评论状态 ‘已通过’  ‘待审核’ ‘已拒绝’ |
+| totalPage | number | 总页数                               |
 
 
 
@@ -638,7 +638,176 @@ baseUrl:'http://localhost'
 
 ## 前台接口
 
-#### 1、文章搜索
+#### 1、首页焦点图
+
+请求地址：/index/hotpic
+
+请求方式：get
+
+请求参数：无
+
+返回数据：（只返回5条）
+
+| 名称  | 类型       | 说明           |
+| ----- | ---------- | -------------- |
+| id    | number类型 | 图片对应文章id |
+| cover | string类型 | 图片地址       |
+| title | string类型 | 文章标题       |
+
+#### 2、文章类型
+
+请求地址：/index/category
+
+请求方式：get
+
+请求参数：无
+
+返回数据：
+
+| 名称 | 类型       | 说明     |
+| ---- | ---------- | -------- |
+| id   | number类型 | 类别id   |
+| name | string类型 | 类别名称 |
+
+#### 3、最新资讯
+
+请求地址：/index/latest
+
+请求方式：get
+
+请求参数：无
+
+返回数据：（只返回5条）
+
+| 名称     | 类型       | 说明             |
+| -------- | ---------- | ---------------- |
+| id       | number类型 | 文章id           |
+| title    | string类型 | 文章标题         |
+| intro    | string类型 | 文章文字内容截取 |
+| cover    | string类型 | 文章封面图片地址 |
+| type     | string类型 | 文章类型         |
+| read     | number类型 | 文章阅读次数     |
+| comments | number类型 | 评论条数         |
+| date     | string类型 | 文章发布时间     |
+
+
+
+#### 4、热门排行
+
+请求地址：/index/rank
+
+请求方式：get
+
+请求参数：无
+
+返回数据：（只返回7条）
+
+| 名称  | 类型       | 说明     |
+| ----- | ---------- | -------- |
+| id    | number类型 | 文章id   |
+| title | string     | 文章标题 |
+
+
+
+#### 5、最新评论
+
+请求地址：/index/latest_comment
+
+请求方式：get
+
+请求参数：无
+
+返回数据：（只返回6条）
+
+|  名称  |  类型  | 说明         |
+| :----: | :----: | ------------ |
+| author | string | 用户名称     |
+|  date  | string | 评论时间     |
+| intro  | string | 评论内容截取 |
+
+
+
+#### 6、焦点关注 
+
+请求地址：/index/attention
+
+请求方式：get
+
+请求参数：无
+
+返回数据：（只返回7条）
+
+| 名称  | 类型       | 说明         |
+| ----- | ---------- | ------------ |
+| intro | string类型 | 文章内容截取 |
+
+
+
+#### 7、文章详细内容
+
+请求地址：/index/artitle
+
+请求方式：get
+
+请求参数：
+
+| 名称 | 类型   | 说明   |
+| ---- | ------ | ------ |
+| id   | string | 文章id |
+
+返回数据：
+
+| 名称     | 类型   | 说明                                                         |
+| -------- | ------ | ------------------------------------------------------------ |
+| title    | string | 文章标题                                                     |
+| author   | string | 文章作者                                                     |
+| type     | string | 文章类型                                                     |
+| date     | string | 文章发布时间                                                 |
+| read     | number | 阅读次数                                                     |
+| comments | number | 评论条数                                                     |
+| content  | string | 文章内容                                                     |
+| prev     | array  | 上一篇文章<br />id： 上一篇文章的id<br />title：上一篇文章的标题 |
+| next     | array  | 下一篇文章<br />id： 下一篇文章的id<br />title：下一篇文章的标题 |
+
+#### 8、评论列表
+
+请求地址：/index/get_comment
+
+请求方式：get
+
+请求参数：
+
+| 名称      | 类型   | 说明   |
+| --------- | ------ | ------ |
+| articleId | string | 文章id |
+
+返回数据：
+
+|  名称   |  类型  | 说明         |
+| :-----: | :----: | ------------ |
+| author  | string | 用户名称     |
+|  date   | string | 评论时间     |
+| content | string | 评论完整内容 |
+
+#### 9、发表评论
+
+请求地址：/index/post_comment
+
+请求方式：post
+
+请求参数：
+
+| 名称      | 类型   | 说明     |
+| --------- | ------ | -------- |
+| author    | string | 用户名称 |
+| content   | string | 评论内容 |
+| articleId | number | 文章id   |
+
+返回数据：‘发表成功’   ‘发表失败’
+
+
+
+#### 10、文章搜索
 
 请求地址：/index/search
 
@@ -695,180 +864,6 @@ baseUrl:'http://localhost'
 ```
 
 
-
-#### 2、文章类型
-
-请求地址：/index/category
-
-请求方式：get
-
-请求参数：无
-
-返回数据：
-
-| 名称 | 类型       | 说明     |
-| ---- | ---------- | -------- |
-| id   | number类型 | 类别id   |
-| name | string类型 | 类别名称 |
-
-
-
-#### 3、热点图
-
-请求地址：/index/hotpic
-
-请求方式：get
-
-请求参数：无
-
-返回数据：（只返回5条）
-
-| 名称   | 类型       | 说明           |
-| ------ | ---------- | -------------- |
-| id     | number类型 | 图片对应文章id |
-| imgurl | string类型 | 图片地址       |
-
-
-
-#### 4、文章热门排行
-
-请求地址：/index/rank
-
-请求方式：get
-
-请求参数：无
-
-返回数据：（只返回7条）
-
-| 名称  | 类型       | 说明     |
-| ----- | ---------- | -------- |
-| id    | number类型 | 文章id   |
-| title | string     | 文章标题 |
-
-
-
-#### 5、最新资讯
-
-请求地址：/index/latest
-
-请求方式：get
-
-请求参数：无
-
-返回数据：（只返回5条）
-
-| 名称     | 类型       | 说明             |
-| -------- | ---------- | ---------------- |
-| id       | number类型 | 文章id           |
-| title    | string类型 | 文章标题         |
-| intro    | string类型 | 文章文字内容截取 |
-| cover    | string类型 | 文章封面图片地址 |
-| type     | string类型 | 文章类型         |
-| read     | number类型 | 文章阅读次数     |
-| comments | number类型 | 评论条数         |
-| date     | string类型 | 文章发布时间     |
-
-
-
-#### 6、最新评论
-
-请求地址：/index/latest_comment
-
-请求方式：get
-
-请求参数：无
-
-返回数据：（只返回6条）
-
-|  名称  |  类型  | 说明         |
-| :----: | :----: | ------------ |
-| author | string | 用户名称     |
-|  date  | string | 评论时间     |
-| intro  | string | 评论内容截取 |
-
-
-
-#### 7、焦点关注 
-
-请求地址：/index/attention
-
-请求方式：get
-
-请求参数：无
-
-返回数据：（只返回7条）
-
-| 名称  | 类型       | 说明         |
-| ----- | ---------- | ------------ |
-| intro | string类型 | 文章内容截取 |
-
-
-
-#### 8、文章详细内容
-
-请求地址：/index/artitle
-
-请求方式：get
-
-请求参数：
-
-| 名称 | 类型   | 说明   |
-| ---- | ------ | ------ |
-| id   | string | 文章id |
-
-返回数据：
-
-| 名称     | 类型   | 说明                                                         |
-| -------- | ------ | ------------------------------------------------------------ |
-| title    | string | 文章标题                                                     |
-| author   | string | 文章作者                                                     |
-| type     | string | 文章类型                                                     |
-| date     | string | 文章发布时间                                                 |
-| read     | number | 阅读次数                                                     |
-| comments | number | 评论条数                                                     |
-| content  | string | 文章内容                                                     |
-| prev     | array  | 上一篇文章<br />id： 上一篇文章的id<br />title：上一篇文章的标题 |
-| next     | array  | 下一篇文章<br />id： 下一篇文章的id<br />title：下一篇文章的标题 |
-
-
-
-#### 9、发表评论
-
-请求地址：/index/post_comment
-
-请求方式：post
-
-请求参数：
-
-| 名称      | 类型   | 说明     |
-| --------- | ------ | -------- |
-| author    | string | 用户名称 |
-| content   | string | 评论内容 |
-| articleId | number | 文章id   |
-
-返回数据：‘发表成功’   ‘发表失败’
-
-
-
-#### 10、评论列表
-
-请求地址：/index/get_comment
-
-请求方式：get
-
-请求参数：
-
-| 名称      | 类型   | 说明   |
-| --------- | ------ | ------ |
-| articleId | string | 文章id |
-
-返回数据：
-
-|  名称   |  类型  | 说明         |
-| :-----: | :----: | ------------ |
-| author  | string | 用户名称     |
-|  date   | string | 评论时间     |
-| content | string | 评论完整内容 |
 
 
 
