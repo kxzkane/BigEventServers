@@ -6,6 +6,9 @@ const { baseUrl, port } = reqlib("/config");
 const fs = require("fs");
 const path = require("path");
 
+// 获取转义的工具函数
+const { html_encode, html_decode } = reqlib("/utils/htmlFmt");
+
 const serverError = res => {
   res.status(500).send({
     code: 500,
@@ -35,7 +38,10 @@ module.exports = {
         state = "草稿";
       }
       // 获取文章的其他信息
-      const { title, date, content } = req.body;
+      const { title, date } = req.body;
+      let { content } = req.body;
+      content = html_encode(content);
+      // console.log(content);
       // 获取封面
       const { filename: cover } = req.file;
 
@@ -66,6 +72,7 @@ module.exports = {
       });
     } catch (error) {
       serverError(res);
+      // console.log(error);
     }
   },
   // 根据id获取文章
@@ -93,6 +100,9 @@ module.exports = {
       }
       // 处理数据
       findRes = JSON.parse(JSON.stringify(findRes));
+
+      findRes.content = html_decode(findRes.content);
+
       // 判断分类是否已经不存在
       if (!findRes.categoryId) {
         return res.send({
@@ -150,7 +160,10 @@ module.exports = {
       }
 
       // 获取数据 除文件
-      const { title, date, content } = req.body;
+      const { title, date } = req.body;
+      let { content } = req.body;
+      content = html_encode(content);
+
       // 获取分类
       let { state } = req.body;
       if (!state) {
@@ -212,7 +225,7 @@ module.exports = {
 
       // 获取最新的值
     } catch (error) {
-      console.log(res)
+      // console.log(res);
       serverError(res);
     }
   },
@@ -257,7 +270,7 @@ module.exports = {
         msg: "文章删除失败,请检查id"
       });
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       serverError(res);
     }
   },
